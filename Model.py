@@ -3,22 +3,25 @@ import json
 phone_book = {}
 path = 'Phone.json'
 
+
 def open_file():
     global phone_book
     try:
-        with open(path, 'r', encoding = 'UTF-8') as file:
+        with open(path, 'r', encoding='UTF-8') as file:
             phone_book = json.load(file)
         return True
     except:
         return False
 
+
 def save_file():
     try:
-        with open(path, 'w', encoding = 'UTF-8') as file:
+        with open(path, 'w', encoding='UTF-8') as file:
             json.dump(phone_book, file, ensure_ascii=False)
         return True
     except:
         return False
+
 
 def search(word: str) -> dict[int: dict[str, str]]:
     result = {}
@@ -27,17 +30,19 @@ def search(word: str) -> dict[int: dict[str, str]]:
             result[index] = contact
     return result
 
+
 def chek_id():
     if phone_book:
         return max(list(map(int, phone_book))) + 1
     return 1
 
+
 def add_contact(new: {int: dict[str, str]}):
     contact = {chek_id(): new}
     phone_book.update(contact)
 
-def delete(word) -> dict[int: dict[str, str]]:
 
+def delete(word) -> dict[int: dict[str, str]]:
     save_file()
 
     phone_book.pop(str(list(dict(word).keys())[0]))
@@ -45,5 +50,7 @@ def delete(word) -> dict[int: dict[str, str]]:
     save_file()
 
 
+def change(word,temp) -> dict[int: dict[str, str]]:
 
-
+    contact = {list(word.keys())[0]: temp}
+    phone_book.update(contact)

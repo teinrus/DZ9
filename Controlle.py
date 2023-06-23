@@ -2,6 +2,7 @@
 import Model
 import Text
 
+
 def start():
     while True:
         select = View.menu()
@@ -27,7 +28,13 @@ def start():
                 result = Model.search(word)
                 View.show_contacts(result, Text.empty_search(word))
             case 6:
-                pass
+                word = View.search_word()
+                result = Model.search(word)
+
+                if len(result)>0:
+                    Model.change(result, View.add_contact())
+                else:
+                    View.print_message(Text.print_errors)
             case 7:
                 word = View.search_word()
                 result = Model.search(word)
